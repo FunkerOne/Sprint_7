@@ -19,10 +19,13 @@ class TestCreateCourier:
 
     @allure.title('Нельзя создать двух одинаковых курьеров с одинаковыми логинами')
     def test_courier_was_created(self):
-        response = requests.post(
+        response_1 = requests.post(
             f'{configuration.CREATE_COURIER_PATH}',
             TestCreateCourier.data)
-        assert response.status_code == 409 and 'Этот логин уже используется' in response.text
+        response_2 = requests.post(
+            f'{configuration.CREATE_COURIER_PATH}',
+            TestCreateCourier.data)
+        assert response_2.status_code == 409 and 'Этот логин уже используется' in response_2.text
 
     @allure.title('Нельзя создать курьера без логина')
     def test_create_courier_without_login(self):
